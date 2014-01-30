@@ -6,7 +6,17 @@ Simple class that detects newer available versions of an enterprise-distributted
 
 ##How it Works
 
-Put following piece of code *application:didFinishLaunchingWithOptions:*.
+### Get the Source Code
+
+Preferred way of integrating PPEnterpriseBuildService is to use CocoaPods. Just add following line to the Podfile of your project.
+
+```ruby
+pod 'PPEnterpriseBuildService', :git => 'https://github.com/petrpavlik/PPEnterpriseBuildService.git'
+```
+
+### Implement it
+
+Import *PPEnterpriseBuildService.h* and put following piece of code in *application:didFinishLaunchingWithOptions:*.
 
 ```Objective-C
 [[PPEnterpriseBuildService 
