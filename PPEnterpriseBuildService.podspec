@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = 'PPEnterpriseBuildService'
-  s.version      = '0.0.3'
+  s.version      = '0.0.4'
   s.summary      = "Simple class that detects newer available versions of an enterprise-distributted app by scanning it's plist file."
 
   s.description  = <<-DESC
@@ -72,7 +72,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => 'https://github.com/petrpavlik/PPEnterpriseBuildService.git', :tag => 'v0.0.3' }
+  s.source       = { :git => 'https://github.com/petrpavlik/PPEnterpriseBuildService.git', :tag => 'v0.0.4' }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

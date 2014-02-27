@@ -61,49 +61,54 @@
     
     self.checkingForNewVersion = YES;
     
-    NSURLRequest* request = [NSURLRequest requestWithURL:self.plistURL];
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    
-    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+    double delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         
-        dispatch_async(dispatch_get_main_queue(), ^{
+        NSURLRequest* request = [NSURLRequest requestWithURL:self.plistURL];
+        NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+        
+        [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
             
-            if (connectionError) {
+            dispatch_async(dispatch_get_main_queue(), ^{
                 
-                [self.delegate enterpriseBuildService:self didFailToDetectNewVersionWithError:connectionError];
+                if (connectionError) {
+                    
+                    [self.delegate enterpriseBuildService:self didFailToDetectNewVersionWithError:connectionError];
+                    
+                    self.checkingForNewVersion = NO;
+                    return;
+                }
                 
-                self.checkingForNewVersion = NO;
-                return;
-            }
-            
-            NSError* parsingError;
-            id plist = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:&parsingError];
-            
-            if (parsingError) {
+                NSError* parsingError;
+                id plist = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:&parsingError];
                 
-                [self.delegate enterpriseBuildService:self didFailToDetectNewVersionWithError:parsingError];
+                if (parsingError) {
+                    
+                    [self.delegate enterpriseBuildService:self didFailToDetectNewVersionWithError:parsingError];
+                    
+                    self.checkingForNewVersion = NO;
+                    return;
+                }
                 
-                self.checkingForNewVersion = NO;
-                return;
-            }
-            
-            NSString* bundleVersionFromPlist = plist[@"items"][0][@"metadata"][@"bundle-version"];
-            NSString* bundleVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-            
-            if (!bundleVersion.length) {
-                return;
-            }
-            
-            if ([bundleVersion compare:bundleVersionFromPlist] == NSOrderedAscending) {
+                NSString* bundleVersionFromPlist = plist[@"items"][0][@"metadata"][@"bundle-version"];
+                NSString* bundleVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
                 
-                [[[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"Version %@ is available.", bundleVersionFromPlist] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Install", nil] show];
-            }
-            else {
+                if (!bundleVersion.length) {
+                    return;
+                }
                 
-                self.checkingForNewVersion = NO;
-            }
-        });
-    }];
+                if ([bundleVersion compare:bundleVersionFromPlist] == NSOrderedAscending) {
+                    
+                    [[[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"Version %@ is available.", bundleVersionFromPlist] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Install", nil] show];
+                }
+                else {
+                    
+                    self.checkingForNewVersion = NO;
+                }
+            });
+        }];
+    });
 }
 
 #pragma mark -
