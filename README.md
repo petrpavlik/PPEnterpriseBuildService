@@ -29,7 +29,7 @@ PPEnterpriseBuildService will try to detect new version on app's startup and eac
 
 ##what it Looks Like
 
-![alt text](https://photos-4.dropbox.com/t/0/AADFVWlTpsxUoebUSEBBgeTFRpNZl1H14PI_8bVzdGGrnA/12/4175299/png/2048x1536/3/1391097600/0/2/Screenshot%202014-01-30%2015.08.41.png/M0NqBaaIXHd5mm2C9T6zb6bV_mZFrQLt8-wCrv9km5Y "Magic here")
+![alt text](https://dl.dropboxusercontent.com/u/4175299/Screenshot%202014-01-30%2015.08.41.png "Magic here")
 
 
 
