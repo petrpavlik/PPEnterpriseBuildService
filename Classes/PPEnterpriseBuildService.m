@@ -93,13 +93,13 @@
                 }
                 
                 NSString* bundleVersionFromPlist = plist[@"items"][0][@"metadata"][@"bundle-version"];
-                NSString* bundleVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+                NSString* bundleVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
                 
                 if (!bundleVersion.length) {
                     return;
                 }
                 
-                if ([bundleVersion compare:bundleVersionFromPlist] == NSOrderedAscending) {
+                if ([bundleVersion compare:bundleVersionFromPlist options:NSNumericSearch] == NSOrderedAscending) {
                     
                     [[[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"Version %@ is available.", bundleVersionFromPlist] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Install", nil] show];
                 }
