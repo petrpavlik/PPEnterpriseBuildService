@@ -16,11 +16,11 @@ Pod::Spec.new do |s|
   #
 
   s.name         = 'PPEnterpriseBuildService'
-  s.version      = '0.0.6'
+  s.version      = '0.0.7'
   s.summary      = "Simple class that detects newer available versions of an enterprise-distributted app by scanning it's plist file."
 
   s.description  = <<-DESC
-                   PPEnterpriseBuildService will try to detect new version on app's startup and each time it goes foreground. 
+                   PPEnterpriseBuildService will try to detect new version on app's startup and each time it goes foreground.
                    DESC
 
   s.homepage     = 'https://github.com/petrpavlik/PPEnterpriseBuildService'
@@ -62,7 +62,7 @@ Pod::Spec.new do |s|
   #  When using multiple platforms
   # s.ios.deployment_target = '5.0'
   # s.osx.deployment_target = '10.7'
-  
+
   s.requires_arc = true
 
 
@@ -72,7 +72,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => 'https://github.com/petrpavlik/PPEnterpriseBuildService.git', :tag => 'v0.0.6' }
+  s.source       = { :git => 'https://github.com/petrpavlik/PPEnterpriseBuildService.git', :tag => 'v0.0.7' }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
